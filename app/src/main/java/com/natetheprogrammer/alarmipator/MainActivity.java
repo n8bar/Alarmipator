@@ -15,28 +15,24 @@ import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
 public class MainActivity extends AppCompatActivity {
-    Button start;
-    Bundle bundle;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        start = findViewById(R.id.button);
-        start.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startAlert();
-            }
-        });
     }
 
-    public void startAlert() {
-        EditText txt = findViewById(R.id.time);
-        int x = Integer.parseInt(txt.getText().toString());
-        Intent my_intent = new Intent(this, AlertBroadcastReceiver.class);
+    public void startAlert(View view) {
+        EditText etTime = findViewById(R.id.time);
+        EditText etTitle = findViewById(R.id.title);
+        EditText etMessage = findViewById(R.id.message);
+        
+        int x = Integer.parseInt(etTime.getText().toString());
+        Intent intent = new Intent(this, AlertBroadcastReceiver.class);
+        intent.putExtra("title", etTitle.getText() );
+        intent.putExtra("message", etMessage.getText());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
-                this.getApplicationContext(), 2343, my_intent, 0);
+                //this.getApplicationContext(), 2343, intent, Intent.FILL_IN_DATA);
+                this.getApplicationContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT );
         
         AlarmManager alarmManager = (AlarmManager) getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
