@@ -11,22 +11,18 @@ import android.widget.Toast;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
-public class AlertBroadcastReceiver extends BroadcastReceiver {
+public class AlertBR extends BroadcastReceiver {
     MediaPlayer mediaPlayer;
     String title = "<untitled>";
     String message = "<empty>";
 
     @Override
-    public void onReceive(Context context, Intent intent) {
+    public void onReceive(Context context, Intent intent) { 
         
-        //Intent i = new Intent(context, MainActivity.class);
-        //i.putExtra("fromAlert",true);
-        //i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        //context.startActivity(i);
-
-        Bundle bundle = intent.getExtras();
-        title = bundle.getString("title"); //,"<no title>");
-        message = bundle.getString("message"); //, "<empty message>");
+        context = context.getApplicationContext();
+        
+        title = intent.getStringExtra("title");
+        message = intent.getStringExtra("message");
         
         Notification notification = new NotificationCompat.Builder( context, App.NOTIFICATION_CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_baseline_notifications_active_24)
@@ -42,7 +38,7 @@ public class AlertBroadcastReceiver extends BroadcastReceiver {
         
         mediaPlayer = MediaPlayer.create(context, R.raw.knock);
         mediaPlayer.start();
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, title+"\n"+message, Toast.LENGTH_LONG).show();
         
     }
     

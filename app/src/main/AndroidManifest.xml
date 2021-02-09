@@ -17,6 +17,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <receiver android:name=".AlertBroadcastReceiver"></receiver>
+        <receiver android:name=".AlertBR"></receiver>
     </application>
 </manifest>
