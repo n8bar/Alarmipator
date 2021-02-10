@@ -24,19 +24,19 @@ public class MainActivity extends AppCompatActivity {
         
         int x = Integer.parseInt(etTime.getText().toString());
         Intent intent = new Intent(view.getContext(), AlertBR.class);
-        intent.putExtra("title", etTitle.getText() );
-        intent.putExtra("message", etMessage.getText());
+        intent.putExtra("title", " "+etTitle.getText() );
+        intent.putExtra("message", " "+etMessage.getText());
         PendingIntent pendingIntent = PendingIntent.getBroadcast(
                 //this.getApplicationContext(), 2343, intent, Intent.FILL_IN_DATA);
                 //this.getApplicationContext(), 0, intent, 0 );
                 //this, 0, intent, 0 );
-                view.getContext(), 0, intent, Intent.FILL_IN_DATA );
+                view.getContext(), 0, intent, PendingIntent.FLAG_UPDATE_CURRENT );
         
         AlarmManager alarmManager = (AlarmManager) view.getContext().getSystemService(ALARM_SERVICE);
         alarmManager.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()
                 + (x * 1000), pendingIntent);
         
-        Toast.makeText(this, "Alarm set in " + x + " seconds \n"+etTitle.getText()+ "\n"+etMessage.getText(), Toast.LENGTH_LONG).show();
+        //Toast.makeText(this, "Alarm set in " + x + " seconds \n"+etTitle.getText()+ "\n"+etMessage.getText(), Toast.LENGTH_LONG).show();
     }
     
 }
